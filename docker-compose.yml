@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ev_pr01_awos
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: ev_pr01
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./bd/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./bd/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+      - ./bd/roles.sql:/docker-entrypoint-initdb.d/03-roles.sql
+      - ./bd/reports_vw.sql:/docker-entrypoint-initdb.d/04-reports_vw.sql
+      - ./bd/indexes.sql:/docker-entrypoint-initdb.d/05-indexes.sql
+      
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ./views-web-app
+    container_name: tarea6_web
+    depends_on:
+      - db
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8080
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
