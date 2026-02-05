@@ -6,6 +6,7 @@ DROP TYPE IF EXISTS program_name, attendance_status CASCADE;
 
 CREATE TYPE program_name AS ENUM ('Software','Science','Physics');
 CREATE TYPE attendance_status AS ENUM ('Present','Absent','Late','Excused');
+CREATE TYPE term_grade AS ENUM ('1','2','3','4','5','6','7','8','9','10');
 
 --Creacion de tablas principales
 CREATE TABLE students (
@@ -34,7 +35,7 @@ CREATE TABLE groups(
     id SERIAL PRIMARY KEY,
     course_id INTEGER REFERENCES courses(id) ON DELETE CASCADE,
     teacher_id INTEGER REFERENCES teachers(id) ON DELETE CASCADE,
-    term VARCHAR(20) NOT NULL
+    term term_grade NOT NULL
 );
 
 CREATE TABLE enrollments(
