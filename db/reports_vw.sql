@@ -87,10 +87,29 @@ WHERE promedio_actual < 70 OR porcentaje_asistencia < 80;
 
 
 -- VIEW 4 - vw_attendance_by_group
---CREATE OR REPLACE VIEW vw_attendance_by_group AS
+CREATE OR REPLACE VIEW vw_attendance_by_group AS
 SELECT 
-    DISTINCT gr.term AS grupo,
-    
+    c.name AS curso,
+    t.name AS profesor,
+    g.term AS grupo,
+    COUNT(DISTINCT e.student_id) AS estudiantes_inscritos,
+    COALESCE(
+        ROUND( 
+            (COUNT(
+                CASE WHEN a.status = 'Present' THEN 1 END)::numeric / NULLIF(COUNT(a.id),0)
+            ) * 100 ,2), 0) 
+    AS porcentaje_asistencia
+FROM groups g
+INNER JOIN courses c ON c.id = g.course_id
+INNER JOIN teachers t ON t.id = g.teacher_id
+LEFT JOIN enrollments e ON e.group_id = g.id
+LEFT JOIN attendance a ON a.enrollment_id = e.id
+GROUP BY
+    c.name,
+    t.name,
+    g.term
+ORDER BY g.term ASC;
+
 
 
 -- VIEW 5 - vw_rank_students
