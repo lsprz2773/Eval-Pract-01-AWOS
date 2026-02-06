@@ -1,6 +1,6 @@
 import { Pool } from 'pg';
 
-// Conexion a BD
+// conexion a bd
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
