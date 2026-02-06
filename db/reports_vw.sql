@@ -49,7 +49,7 @@ WITH students_metrics AS (
         COUNT(a.id) AS total_asistencias,
         COUNT(
             CASE
-                WHEN a.status = 'Present' THEN 1
+                WHEN a.status = 'Presente' THEN 1
             END
         ) AS conteo_asistencias
     FROM students s
@@ -96,7 +96,7 @@ SELECT
     COALESCE(
         ROUND( 
             (COUNT(
-                CASE WHEN a.status = 'Present' THEN 1 END)::numeric / NULLIF(COUNT(a.id),0)
+                CASE WHEN a.status = 'Presente' THEN 1 END)::numeric / NULLIF(COUNT(a.id),0)
             ) * 100 ,2), 0) 
     AS porcentaje_asistencia
 FROM groups g
