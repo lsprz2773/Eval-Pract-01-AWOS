@@ -4,8 +4,8 @@ DROP TYPE IF EXISTS program_name, attendance_status CASCADE;
 
 --Creacion de tipos
 
-CREATE TYPE program_name AS ENUM ('Software','Science','Physics');
-CREATE TYPE attendance_status AS ENUM ('Present','Absent','Late','Excused');
+CREATE TYPE program_name AS ENUM ('Software','Ciencias','Fisica');
+CREATE TYPE attendance_status AS ENUM ('Presente','Ausente','Retardo','Permiso');
 CREATE TYPE term_grade AS ENUM ('1','2','3','4','5','6','7','8','9','10');
 
 --Creacion de tablas principales

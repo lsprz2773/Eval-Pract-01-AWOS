@@ -3,7 +3,7 @@ CREATE OR REPLACE VIEW vw_courses_performance AS
 SELECT 
     c.name AS curso, 
     g.term AS grupo, 
-    ROUND(AVG(gr.partial1 + gr.partial2 + gr.final)/3 , 2) AS promedio,
+    ROUND(AVG((gr.partial1 + gr.partial2 + gr.final)/3), 2) AS promedio,
     COUNT(
         CASE
             WHEN ((gr.partial1 + gr.partial2 + gr.final)/3) < 70
