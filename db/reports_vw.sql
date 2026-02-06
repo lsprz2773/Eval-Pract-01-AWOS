@@ -113,5 +113,23 @@ ORDER BY g.term ASC;
 
 
 -- VIEW 5 - vw_rank_students
-
+CREATE OR REPLACE VIEW vw_rank_students AS
+SELECT 
+    s.name AS nombre_estudiante,
+    s.program AS programa,
+    g.term AS grupo,
+    ROUND(AVG((gr.partial1 + gr.partial2 + gr.final) / 3), 2) AS promedio_global,
+    RANK() OVER (
+        PARTITION BY s.program, g.term 
+        ORDER BY AVG((gr.partial1 + gr.partial2 + gr.final) / 3) DESC
+    ) AS posicion_rank,
+    ROW_NUMBER() OVER (
+        PARTITION BY s.program, g.term 
+        ORDER BY AVG((gr.partial1 + gr.partial2 + gr.final) / 3) DESC
+    ) AS fila
+FROM students s
+INNER JOIN enrollments e ON s.id = e.student_id
+INNER JOIN groups g ON e.group_id = g.id
+INNER JOIN grades gr ON e.id = gr.enrollment_id
+GROUP BY s.id, s.name, s.program, g.term;
 
