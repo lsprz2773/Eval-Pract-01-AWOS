@@ -1,4 +1,19 @@
 -- VIEW 1 - vw_courses_performance
+-- GRAIN: Curso por temrino academico
+-- METRICAS:
+--  promedio: calificacion media de los alumnos que estan inscritos en esa materia
+--  alumnos_reprobados: cantidad de estudiantes con promedio menor a 70
+
+-- QUERIES DE VERIFICACION:
+--  El promedio de la vista coincide con el cálculo manual total (puede cambiar debido al redondeo)
+--      SELECT AVG((partial1 + partial2 + final) / 3) FROM grades;
+--      Para verificar: SELECT AVG(promedio) FROM vw_courses_performance;
+
+--  El conteo de reprobados es exacto
+--      SELECT COUNT(*) FROM grades WHERE (partial1 + partial2 + final) / 3 < 70;
+--      Para verificar: SELECT SUM(alumnos_reprobados) FROM vw_courses_performance;
+
+-- VIEW:
 CREATE OR REPLACE VIEW vw_courses_performance AS
 SELECT 
     c.name AS curso, 
@@ -18,7 +33,26 @@ GROUP BY c.name, g.term
 ORDER BY curso;
 
 
+
+
+
 -- VIEW 2 - vw_teacher_load
+-- GRAIN: maestro por grupo
+-- METRICAS:
+--  grupos_actuales: conteo de grupos asignados al maestro
+--  alumnos_totales: conteo de alumnos atendidos por maestro
+--  promedio_general: promedio acumulado de todos los alumnos del maestro
+
+-- QUERIES DE VERIFICACION:
+--  Coinciden los alumnos totales del docente 1 y grupo 1
+--      SELECT COUNT(DISTINCT student_id) FROM enrollments WHERE group_id IN (SELECT id FROM groups WHERE teacher_id = 1);
+--      Para verificar: SELECT alumnos_totales FROM vw_teacher_load WHERE id_docente = 1 AND grado = '1';
+
+--  El docente 1 tiene realmente N grupos
+--      SELECT COUNT(*) FROM groups WHERE teacher_id = 1;
+--      Para verificar: SELECT SUM(grupos_actuales) FROM vw_teacher_load WHERE id_docente = 1;
+
+-- VIEW:
 CREATE OR REPLACE VIEW vw_teacher_load AS
 SELECT 
     t.id AS id_docente,
@@ -37,6 +71,17 @@ ORDER BY grupos_actuales DESC;
 
 
 -- VIEW 3 - vw_students_at_risk
+-- GRAIN: Estudiante por curso
+-- METRICAS:
+--  promedio: nota actual de alumno por curso
+--  porcentaje_asistencia: relacion entre asistencisa y total de asistencias del curso
+
+-- QUERIE DE VERIFICACION:
+-- El filtro de riesgo funciona (mismo total de filas que la vista)
+--      SELECT COUNT(*) FROM grades WHERE (partial1 + partial2 + final) / 3 < 70;
+--      Para verificar: SELECT COUNT(*) FROM vw_students_at_risk;
+
+-- VIEW:
 CREATE OR REPLACE VIEW vw_students_at_risk AS
 WITH students_metrics AS (
     SELECT
@@ -86,7 +131,22 @@ FROM risk_calc
 WHERE promedio_actual < 70 OR porcentaje_asistencia < 80;
 
 
+
+
+
+
 -- VIEW 4 - vw_attendance_by_group
+--GRAIN: Grupo
+--METRICAS:
+--  estudiantes_inscritos: total de alumnos dentro del grupo
+--  porcentaje_asistencia: relacion entre asistencia del grupo y total de asistencias del curso
+
+-- QUERIE DE VERIFICACION:
+--  El número de estudiantes_inscritos en el grupo con id 1 es correcto
+--      SELECT COUNT(*) FROM enrollments WHERE group_id = 1;
+--      Para verificar: SELECT COUNT(grupo) FROM vw_attendance_by_group WHERE grupo = '1';
+
+--  VIEW:
 CREATE OR REPLACE VIEW vw_attendance_by_group AS
 SELECT 
     c.name AS curso,
@@ -112,7 +172,20 @@ ORDER BY g.term ASC;
 
 
 
+
+
 -- VIEW 5 - vw_rank_students
+-- GRAIN: Estudiante por grupo
+-- METRICAS:
+--  promedio_global: media de las materia que el alumno cursa
+--  posicion_rank: puesto que el alumno ocupa entre todos
+--  fila: numero secuencial
+
+--QUERIES DE VERIFICACION:
+--  La posicion_rank 1 tiene el promedio_global más alto
+--  SELECT * FROM vw_rank_students WHERE posicion_rank = 1 ORDER BY promedio_global DESC LIMIT 1;
+
+-- VIEW:
 CREATE OR REPLACE VIEW vw_rank_students AS
 SELECT 
     s.name AS nombre_estudiante,

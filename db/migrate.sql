@@ -1,14 +1,5 @@
---1.Estructura base
-\i schema.sql
+\i /tmp/reports_vw.sql
 
---2.Views
-\i views.sql
+\i /tmp/indexes.sql
 
---3.Indices
-\i indexes.sql
-
---4.Usuarios y permisos
-\i roles.sql
-
---5.Datos de prueba
-\i seed.sql
+\i /tmp/roles.sql
