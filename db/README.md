@@ -6,7 +6,7 @@
 
 - **idx_groups_course_teacher**: acelera consultas que filtran o unen por curso y docente, mejora joins entre `groups` y tablas relacionadas
  
-**XPLAIN (salidas proporcionadas)**
+**EXPLAIN (salidas proporcionadas)**
 
 Consulta 1 (para `idx_students_search_name_email`):
 

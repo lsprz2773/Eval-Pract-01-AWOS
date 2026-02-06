@@ -28,14 +28,14 @@ export default function StudentsAtRiskPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12 px-4">
+    <main className="min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
           ← Volver al panel
         </Link>
 
-        <h1 className="text-3xl font-bold text-black dark:text-white mb-8">Estudiantes en Riesgo</h1>
-        <h2 className="text-3l font-bold text-black dark:text-white mb-8">Alumnos con bajo rendimiento o inasistencia para acciones preventivas inmediatas.</h2>
+        <h1 className="text-3xl font-bold text-black mb-8">Estudiantes en Riesgo</h1>
+        <h2 className="text-3l font-bold text-black mb-8">Alumnos con bajo rendimiento o inasistencia para acciones preventivas inmediatas.</h2>
 
 
         <div className="bg-white dark:bg-slate-800 rounded-lg p-6 mb-8 shadow-md">

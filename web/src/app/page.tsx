@@ -28,15 +28,10 @@ export default function Home() {
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12 px-4">
+    <main className="min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-black dark:text-white mb-4">
-            Panel de Reportes
-          </h1>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col gap-6">
           {reports.map((report) => (
             <a
               key={report.href}

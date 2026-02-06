@@ -23,19 +23,19 @@ export default function RankStudentsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-12 px-4">
+    <main className="min-h-screen py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <Link href="/" className="text-blue-600 dark:text-blue-400 hover:underline mb-6 inline-block">
           ← Volver al panel
         </Link>
 
-        <h1 className="text-3xl font-bold text-black dark:text-white mb-8">Rankings de Estudiantes</h1>
-        <h2 className="text-3l font-bold text-black dark:text-white mb-8">Top estudiantes por programa para reconocimiento y apoyo.</h2>
+        <h1 className="text-3xl font-bold text-black mb-8">Rankings de Estudiantes</h1>
+        <h2 className="text-3l font-bold text-black mb-8">Top estudiantes por programa para reconocimiento y apoyo.</h2>
 
         <div className="bg-white dark:bg-slate-800 rounded-lg p-6 mb-8 shadow-md">
           <div className="flex gap-4 items-end">
             <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Programa (obligatorio)
               </label>
               <select
