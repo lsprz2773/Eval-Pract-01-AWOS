@@ -37,7 +37,7 @@ ORDER BY grupos_actuales DESC;
 
 
 -- VIEW 3 - vw_students_at_risk
---CREATE OR REPLACE VIEW vw_students_at_risk AS
+CREATE OR REPLACE VIEW vw_students_at_risk AS
 WITH students_metrics AS (
     SELECT
         s.id AS id_estudiante,
@@ -58,7 +58,7 @@ WITH students_metrics AS (
     INNER JOIN courses c ON c.id = g.course_id
     LEFT JOIN grades gr ON gr.enrollment_id = e.id
     LEFT JOIN attendance a on a.enrollment_id = e.id
-    GROUP BY s.id, s.name, s.email, s.program, c.name, g.partial1, g.partial2, g.final
+    GROUP BY s.id, s.name, s.email, s.program, c.name, gr.partial1, gr.partial2, gr.final
 ), risk_calc AS (
     SELECT
         *,
@@ -75,17 +75,22 @@ SELECT
     correo,
     programa,
     curso,
-    ROUND(promedio_actual, 2)AS promedio,
+    ROUND(promedio_actual, 2) AS promedio,
     porcentaje_asistencia,
     CASE
-        WHEN current_avg < 70 AND attendance_rate < 80 THEN 'Critical: Grade & Attendance'
-        WHEN current_avg < 70 THEN 'Low Grades'
-        WHEN attendance_rate < 80 THEN 'Low Attendance'
-    END AS risk_reason
+        WHEN promedio_actual < 70 AND porcentaje_asistencia < 80 THEN 'Asistencia y promedio criticos'
+        WHEN promedio_actual < 70 THEN 'Promedio bajo'
+        WHEN porcentaje_asistencia < 80 THEN 'Asistencia baja'
+    END AS razon_riesgo
+FROM risk_calc
+WHERE promedio_actual < 70 OR porcentaje_asistencia < 80;
 
 
 -- VIEW 4 - vw_attendance_by_group
-
+--CREATE OR REPLACE VIEW vw_attendance_by_group AS
+SELECT 
+    DISTINCT gr.term AS grupo,
+    
 
 
 -- VIEW 5 - vw_rank_students
