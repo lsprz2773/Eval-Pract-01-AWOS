@@ -24,7 +24,7 @@ cd web
 
 - Como siguiente paso instala las dependencias de Next con:
 ```bash
-npm instal
+npm install
 ```
 
 - Regresa a la carpeta raiz con:
