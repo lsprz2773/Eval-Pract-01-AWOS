@@ -10,14 +10,32 @@ Esta aplicacion transforma datos transaccionales en reportes academicos a traves
 - 4. Asistencia grupal
 - 5. Ranking estudiantil por grupo
 
-## Tecnologias usadas
+#### Tecnologias usadas
 - Next.js
 - PostgreSQL
 - Docker/Docker Compose
 
-ANTES DE EJECUTAR EL PROYECTO CON
+## ANTES DE EJECUTAR EL PROYECTO:
+- Abre una terminal de Git Bash
+- Entra a la carpeta del servicio web con:
+```bash
+cd web
+```
+
+- Como siguiente paso instala las dependencias de Next con:
+```bash
+npm instal
+```
+
+- Regresa a la carpeta raiz con:
+```bash
+cd ..
+```
+
+- Y finalmente ejecuta: 
 ```bash
 docker compose up --build
 ``` 
+### IMPORTANTE
 Se requiere tener creado el archivo .env con las credenciales correctas
 en la RAIZ del proyecto, al mismo nivel del archivo docker-compose.yml
