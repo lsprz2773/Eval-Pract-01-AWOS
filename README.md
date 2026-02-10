@@ -36,6 +36,6 @@ cd ..
 ```bash
 docker compose up --build
 ``` 
-### IMPORTANTE
+### IMPORTANTE 
 Se requiere tener creado el archivo .env con las credenciales correctas
 en la RAIZ del proyecto, al mismo nivel del archivo docker-compose.yml

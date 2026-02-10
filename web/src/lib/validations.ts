@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 // esquemas de validación para filtros y búsquedas
 export const coursesPerformanceSchema = z.object({
-  term: z.string().min(1, 'Term es obligatorio').regex(/^[1-10]$/, 'Term debe ser entre 1 y 8'),
+  term: z.string().min(1, 'Term es obligatorio').regex(/^([1-9]|10)$/, 'Term debe ser entre 1 y 10'),
 });
 
 export const rankStudentsSchema = z.object({
