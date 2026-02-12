@@ -8,3 +8,5 @@ router.get('/teacher-load', controller.getTeacherLoad);
 router.get('/students-at-risk', controller.getStudentsAtRisk);
 router.get('/attendance-by-group', controller.getAttendanceByGroup);
 router.get('/rank-students', controller.getRankStudents);
+
+export default router;
