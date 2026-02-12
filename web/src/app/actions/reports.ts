@@ -12,7 +12,7 @@ import {
   type TeacherLoadInput,
   type AttendanceByGroupInput,
 } from '@/lib/validations';
-const API_URL = process.env.INTERNAL_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function apiRequest(endpoint: string, params?: Record<string, any>) {
   try {

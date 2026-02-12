@@ -1,8 +1,6 @@
 import type { Request, Response } from 'express';
 import * as db from '../config/db.js';
 import * as schemas from '../lib/schemas/views-schema.js';
-import { success } from "zod";
-import { da } from "zod/locales";
 
 export const getCoursesPerformance = async (req: Request, res: Response) => {
     try{
